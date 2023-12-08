@@ -9,6 +9,7 @@ from strawberry import Strawberry
 from player import Player
 from bomb import Bomb
 from cloud import Cloud
+from scoreboard import Scoreboard
 
 pygame.init()
 
@@ -198,6 +199,7 @@ strawberry = Strawberry()
 player = Player()
 bomb = Bomb()
 cloud = Cloud()
+score = Scoreboard(30, 30, 0)
 # made a fruit group
 fruit_sprites = pygame.sprite.Group()
 # make a sprites group
@@ -210,6 +212,7 @@ all_sprites.add(strawberry)
 all_sprites.add(player)
 all_sprites.add(bomb)
 all_sprites.add(cloud)
+all_sprites.add(score)
 
 
 fruit_sprites.add(apple)
@@ -247,10 +250,13 @@ while running:
     # Check Colisions
     fruit = pygame.sprite.spritecollideany(player, fruit_sprites)
     if fruit:
+        score.update(100)
         fruit.reset()
     if pygame.sprite.collide_rect(player, bomb):
         running = False
-
+    
+    score.move
+    score.render(screen)
     # Update the window
     pygame.display.flip()
     clock.tick(60)
